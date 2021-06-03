@@ -12,7 +12,7 @@ Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birt
 
  6. Edit your contacts birthdays/names in 'file.json' and then Upload 'file.json' into s3 bucket. DO NOT MAKE PUBLIC
  7. Load BUCKETNAME and FILENAME into the Lambda script 'lambda_function.py'
- 8. Test via lambda console using 'test' user in the json file and today's note noting that timezone executed is GMT
+ 8. Test via lambda console using 'test' user in the json file and today's date. Note:the timezone executed is GMT
  9. Set up cloudwatch event rule with cron job frequency of trigger to your lambda of 0 5 * * ? * NOTE THIS IS GMT TIME
 ![image](https://user-images.githubusercontent.com/44328319/120416540-527f0c00-c32b-11eb-9593-021d9e560963.png)
 
