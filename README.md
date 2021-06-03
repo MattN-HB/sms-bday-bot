@@ -1,5 +1,6 @@
 # sms-bday-bot
 Objective: Send a birthday text message to list of people on their birthday due to if your like me you forget people's birthdays :(
+
 Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birthday texts to your contacts
 ## Setup
  1. Deploy Lambda function 'lambda_function.py' to your AWS Lambda via console
