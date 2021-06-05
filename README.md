@@ -3,18 +3,19 @@ Objective: Send a birthday text message to list of people on their birthday due 
 
 Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birthday texts to your contacts
 ## Setup
- 0. As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to AWS Pinpoint register TFN for $2month and it will auto associate to SNS. See issue #3.
- 1. Deploy Lambda function 'lambda_function.py' to your AWS Lambda via console
+ 0. As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to AWS Pinpoint console register TFN for $2/month and it will auto associate to SNS. See issue #3.
+ 1. Deploy Lambda function ```lambda_function.py``` to your AWS Lambda via console
  2. Create custom IAM Role with below managed tweaked policies (s3 read, sns write (make sure set resource to * )
 ![image](https://user-images.githubusercontent.com/44328319/120417072-3760cc00-c32c-11eb-98f5-d17ea86a403d.png)
 
  4. Attach policy to Lambda
 ![image](https://user-images.githubusercontent.com/44328319/120416980-139d8600-c32c-11eb-814a-9df402952326.png)
 
- 6. Edit your contacts birthdays/names in 'file.json' and then Upload 'file.json' into s3 bucket. DO NOT MAKE PUBLIC
- 7. Load BUCKETNAME and FILENAME into the Lambda script 'lambda_function.py'
+ 6. Edit your contacts birthdays/names in ```file.json``` and then Upload ```file.json``` into s3 bucket. DO NOT MAKE PUBLIC
+ 7. Load ```[BUCKETNAME]``` and ```[FILENAME]``` into the Lambda script ```lambda_function.py```
  8. Test via lambda console using 'test' user in the json file and today's date. Note:the timezone executed is GMT
- 9. Set up cloudwatch event rule with cron job frequency of trigger to your lambda of 0 5 * * ? * NOTE THIS IS GMT TIME
+ 9. Set up cloudwatch event rule with cron job frequency of trigger to your lambda.I set it up as ``` 0 14 * * ? *  ``` which is 1400 Daily GMT or 0900 CST 
+
 ![image](https://user-images.githubusercontent.com/44328319/120416540-527f0c00-c32b-11eb-9593-021d9e560963.png)
 
 ## Resources
