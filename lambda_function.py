@@ -15,6 +15,7 @@ session = boto3.Session(
 )
 sns_client = session.client('sns')
 # Intialize s3
+
 s3 = boto3.client('s3')
 def lambda_handler(event, context):
     # Get file from s3 bucket
@@ -35,5 +36,9 @@ def lambda_handler(event, context):
                 PhoneNumber=value['phone'],
                 Message='Happy Birthday ' + value['name'] + '!' + ' Have a fantastic day. From, YOUR_NAME! https://giphy.com/gifs/theoffice-nbc-the-office-tv-lNByEO1uTbVAikv8oT PS This is noreply number',
                 )
-
+                        # Optional to send to SNS topic so you know it worked I sent to Slack channel via SNS to Lambda
+            response = sns_client.publish(
+                TargetArn='[YOURSNSARN]',
+                Message='Happy Birthday ' + value['name'] + '!' + ' Have a fantastic day. From, YOUR_NAME! https://giphy.com/gifs/theoffice-nbc-the-office-tv-lNByEO1uTbVAikv8oT PS This is noreply number',
+                )
     return str(datetime.now())
