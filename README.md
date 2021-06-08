@@ -13,8 +13,9 @@ Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birt
 
  6. Edit your contacts birthdays/names in ```file.json``` and then Upload ```file.json``` into s3 bucket. DO NOT MAKE PUBLIC
  7. Load ```[BUCKETNAME]``` and ```[FILENAME]``` into the Lambda script ```lambda_function.py```
- 8. Test via lambda console using 'test' user in the json file and today's date. Note:the timezone executed is GMT
- 9. Set up cloudwatch event rule with cron job frequency of trigger to your lambda.I set it up as ``` 0 14 * * ? *  ``` which is 1400 Daily GMT or 0900 CST 
+ 8. If you want to get alerted when message is sent create SNS topic and edit field ```[YOURSNSARN] ```. I have sent to my email and slack.
+ 9. Test via lambda console using 'test' user in the json file and today's date. Note:the timezone executed is GMT
+ 10. Set up cloudwatch event rule with cron job frequency of trigger to your lambda.I set it up as ``` 0 14 * * ? *  ``` which is 1400 Daily GMT or 0900 CST 
 
 ![image](https://user-images.githubusercontent.com/44328319/120416540-527f0c00-c32b-11eb-9593-021d9e560963.png)
 
@@ -22,6 +23,7 @@ Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birt
 * [SMS Code](https://www.qloudx.com/how-to-send-an-sms-from-aws-lambda/)
 * [Slack example in python](https://github.com/thibeault/lambda-slack-birthday-bot/blob/master/run.py)
 * [Call S3 file with lambda](http://www.awslessons.com/2017/accessing-s3-with-lambda-functions/)
+* [Boto3 SNS Doc](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html#SNS.Client.publish)
 * [SNS Access Policy Examples](https://docs.aws.amazon.com/sns/latest/dg/sns-access-policy-use-cases.html)
 * [Querying Dynamodb tool](https://dynobase.dev/dynamodb-query/)
 * [DynamoDB cheat sheet](https://dynobase.dev/dynamodb-python-with-boto3/)
