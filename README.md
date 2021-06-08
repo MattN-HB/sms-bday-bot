@@ -22,5 +22,6 @@ Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birt
 * [SMS Code](https://www.qloudx.com/how-to-send-an-sms-from-aws-lambda/)
 * [Slack example in python](https://github.com/thibeault/lambda-slack-birthday-bot/blob/master/run.py)
 * [Call S3 file with lambda](http://www.awslessons.com/2017/accessing-s3-with-lambda-functions/)
+* [SNS Access Policy Examples](https://docs.aws.amazon.com/sns/latest/dg/sns-access-policy-use-cases.html)
 * [Querying Dynamodb tool](https://dynobase.dev/dynamodb-query/)
 * [DynamoDB cheat sheet](https://dynobase.dev/dynamodb-python-with-boto3/)
