@@ -14,9 +14,10 @@ session = boto3.Session(
     region_name="us-east-1"
 )
 sns_client = session.client('sns')
-# Intialize s3
 
+# Intialize s3
 s3 = boto3.client('s3')
+
 def lambda_handler(event, context):
     # Get file from s3 bucket
     file = s3.get_object(Bucket='BUCKETNAME', Key='FILENAME') 
@@ -34,11 +35,9 @@ def lambda_handler(event, context):
         if checker.month == today.month and checker.day == today.day:
             response = sns_client.publish(
                 PhoneNumber=value['phone'],
-                Message='Happy Birthday ' + value['name'] + '!' + ' Have a fantastic day. From, YOUR_NAME! https://giphy.com/gifs/theoffice-nbc-the-office-tv-lNByEO1uTbVAikv8oT PS This is noreply number',
-                )
-                        # Optional to send to SNS topic so you know it worked I sent to Slack channel via SNS to Lambda
+                Message='Hi ' + value['name'] + '!' + value['msg'],
+                # Optional to send to SNS topic so you know it worked I sent to Slack channel via SNS to Lambda
             response = sns_client.publish(
                 TargetArn='[YOURSNSARN]',
-                Message='Happy Birthday ' + value['name'] + '!' + ' Have a fantastic day. From, YOUR_NAME! https://giphy.com/gifs/theoffice-nbc-the-office-tv-lNByEO1uTbVAikv8oT PS This is noreply number',
-                )
+                Message='Hi ' + value['name'] + '!' + value['msg'],
     return str(datetime.now())
