@@ -1,7 +1,7 @@
 # sms-bday-bot
 Objective: Send a birthday text message to list of people on their birthday due to if your like me you forget people's birthdays :(
-
 Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birthday texts to your contacts
+Update as of 6/15: ```[msg]``` added as value in json file so you can customize your messages per person allowing be used not just for birthdays. See [issue #5](https://github.com/MattN-HB/sms-bday-bot/issues/5)
 ## Setup
  0. As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to AWS Pinpoint console register TFN for $2/month and it will auto associate to SNS. See [issue #3](https://github.com/MattN-HB/sms-bday-bot/issues/3).
  1. Deploy Lambda function ```lambda_function.py``` to your AWS Lambda via console
@@ -11,7 +11,7 @@ Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birt
  4. Attach policy to Lambda
 ![image](https://user-images.githubusercontent.com/44328319/120416980-139d8600-c32c-11eb-814a-9df402952326.png)
 
- 6. Edit your contacts birthdays/names in ```file.json``` and then Upload ```file.json``` into s3 bucket. DO NOT MAKE PUBLIC
+ 6. Edit your contacts in ```file.json``` and then Upload ```file.json``` into s3 bucket. DO NOT MAKE PUBLIC
  7. Load ```[BUCKETNAME]``` and ```[FILENAME]``` into the Lambda script ```lambda_function.py```
  8. If you want to get alerted when message is sent create SNS topic and edit field ```[YOURSNSARN] ```. I have sent to my email and slack.
  9. Test via lambda console using 'test' user in the json file and today's date. Note:the timezone executed is GMT
