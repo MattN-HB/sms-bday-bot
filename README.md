@@ -1,6 +1,8 @@
 # sms-bday-bot
 Objective: Send a birthday text message to list of people on their birthday due to if your like me you forget people's birthdays :(
+
 Purpose: Utiizing AWS services of Lambda, SNS, and S3 automate sending your birthday texts to your contacts
+
 Update as of 6/15: ```[msg]``` added as value in json file so you can customize your messages per person allowing be used not just for birthdays. See [issue #5](https://github.com/MattN-HB/sms-bday-bot/issues/5)
 ## Setup
  0. As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to AWS Pinpoint console register TFN for $2/month and it will auto associate to SNS. See [issue #3](https://github.com/MattN-HB/sms-bday-bot/issues/3).
