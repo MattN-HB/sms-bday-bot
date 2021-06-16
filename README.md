@@ -6,7 +6,7 @@ Objective: Send a birthday text message to list of people on their birthday due 
 ## Setup
  0. As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to AWS Pinpoint console register TFN for $2/month and it will auto associate to SNS. See [issue #3](https://github.com/MattN-HB/sms-bday-bot/issues/3).
  1. Deploy Lambda function ```lambda_function.py``` to your AWS Lambda via console
- 2. Create custom IAM Role with below managed tweaked policies (s3 read, sns write (make sure set resource to * )
+ 2. Create custom IAM Role with below managed tweaked policies (s3 read, sns write (make sure set resource to * ). Best practice to keep the accesses as 'least privilege' as possible.
 ![image](https://user-images.githubusercontent.com/44328319/120417072-3760cc00-c32c-11eb-98f5-d17ea86a403d.png)
 
  4. Attach policy to Lambda
