@@ -24,6 +24,7 @@ Objective: Send a birthday text message to list of people on their birthday due 
 * [SMS Code](https://www.qloudx.com/how-to-send-an-sms-from-aws-lambda/)
 * [Slack example in python](https://github.com/thibeault/lambda-slack-birthday-bot/blob/master/run.py)
 * [Call S3 file with lambda](http://www.awslessons.com/2017/accessing-s3-with-lambda-functions/)
+* [CLI S3 cheat sheet](https://acloudguru.com/blog/engineering/aws-s3-cheat-sheet)
 * [Boto3 SNS Doc](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html#SNS.Client.publish)
 * [SNS Access Policy Examples](https://docs.aws.amazon.com/sns/latest/dg/sns-access-policy-use-cases.html)
 * [Querying Dynamodb tool](https://dynobase.dev/dynamodb-query/)
