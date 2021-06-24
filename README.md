@@ -1,5 +1,5 @@
 # sms-bday-bot
-Objective: Send a birthday text message to list of people on their birthday due to if your like me you forget people's birthdays :(. It uses AWS services of Lambda, SNS, cloudwatch rules, and S3 to automate sending messages via sms.
+Objective: Send a birthday or any type of event driven text message to list of people on their birthday/other event due to if your like me you forget people's birthdays/important dates :(. It uses AWS services of Lambda, SNS, cloudwatch rules, and S3 to automate sending messages via sms.
 
 Update 6/25/2021:  ```[birthday]``` changed to ```[eventdate]``` to be used for any type of event. [See issue #6](https://github.com/MattN-HB/sms-bday-bot/issues/6)
 
