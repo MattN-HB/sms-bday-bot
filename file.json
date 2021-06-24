@@ -4,25 +4,25 @@
       "name": "Matt",
       "msg": "Happy Birthday! Have a fantastic day. Cheers, [YourName]",
       "phone": "12345678901",
-      "birthday": "1973-06-01"
+      "eventdate": "1973-06-01"
     },
     {
       "name": "dave",
       "msg": "Happy Birthday! Have a fantastic day. Cheers, [YourName]",
       "phone": "12345678901",
-      "birthday": "1973-11-16"
+      "eventdate": "1973-11-16"
     },
     {
       "name": "ted",
       "msg": "Happy Birthday! Have a fantastic day. Cheers, [YourName]",
       "phone": "12345678901",
-      "birthday": "1973-10-01"
+      "eventdate": "1973-10-01"
     },
     {
       "name": "paul",
       "msg": "Happy Birthday! Have a fantastic day. Cheers, [YourName]",
       "phone": "12345678901",
-      "birthday": "1973-11-26"
+      "eventdate": "1973-11-26"
     }
   ]
 }
