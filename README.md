@@ -1,5 +1,6 @@
 # sms-bday-bot
 Update 6/15/2021: ```[msg]``` added as value in json file so you can customize your messages per person allowing be used not just for birthdays. See [issue #5](https://github.com/MattN-HB/sms-bday-bot/issues/5)
+
 Update 6/25/2021:  ```[birthday]``` changed to ```[eventdate]``` to be used for any type of event. [See issue #6](https://github.com/MattN-HB/sms-bday-bot/issues/6)
 
 Objective: Send a birthday text message to list of people on their birthday due to if your like me you forget people's birthdays :(. It uses AWS services of Lambda, SNS, cloudwatch rules, and S3 to automate sending messages via sms.
