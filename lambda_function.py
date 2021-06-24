@@ -31,7 +31,7 @@ def lambda_handler(event, context):
     friends = "None"
 
     for value in jdata['members']:
-        checker = datetime.strptime(value['birthday'], "%Y-%m-%d").date()
+        checker = datetime.strptime(value['date'], "%Y-%m-%d").date()
         if checker.month == today.month and checker.day == today.day:
             response = sns_client.publish(
                 PhoneNumber=value['phone'],
