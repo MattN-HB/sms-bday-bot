@@ -39,5 +39,5 @@ def lambda_handler(event, context):
                 # Optional to send to SNS topic so you know it worked I sent to Slack channel via SNS to Lambda
             response = sns_client.publish(
                 TargetArn='[YOURSNSARN]',
-                Message='Hi ' + value['name'] + '!' + value['msg'],
+                Message='FYI the following was sent to ' + value['name'] + ' : ' + value['msg'],
     return str(datetime.now())
