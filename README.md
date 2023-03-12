@@ -1,33 +1,123 @@
 # sms-bday-bot
-Objective: Send a birthday or any type of event driven text message to list of people on their birthday/other event due to if your like me you forget people's birthdays/important dates :(. It uses AWS services of Lambda, Pinpoint, SNS, cloudwatch rules, and S3 to automate sending messages via sms.
 
-Update 6/25/2021:  ```[birthday]``` changed to ```[eventdate]``` to be used for any type of event. [See issue #6](https://github.com/MattN-HB/sms-bday-bot/issues/6)
+Send message to your contacts on an important date (e.g. <name>! Happy Birthday, <name>! Happy anniversary!)
 
-Update 6/15/2021: ```[msg]``` added as value in json file so you can customize your messages per person allowing be used not just for birthdays. See [issue #5](https://github.com/MattN-HB/sms-bday-bot/issues/5)
+## Architecture
+
+![Alt architecture](/docs/architecture-smsbdaybot.png)
+
+## Examples
+
+### Example SMS
+
+![Alt sms message](/docs/example_text.jpeg)
+
+### Example Slack Message
+
+![Alt slack message](/docs/example_slack.jpeg)
 
 ## Setup
- 0. As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to AWS Pinpoint console register TFN for $2/month and it will auto associate to SNS. See [issue #3](https://github.com/MattN-HB/sms-bday-bot/issues/3).
- 1. Deploy Lambda function ```lambda_function.py``` to your AWS Lambda via console
- 2. Create custom IAM Role with below managed tweaked policies (s3 read, sns write (make sure set resource to * ). Best practice to keep the accesses as 'least privilege' as possible.
-![image](https://user-images.githubusercontent.com/44328319/120417072-3760cc00-c32c-11eb-98f5-d17ea86a403d.png)
 
- 4. Attach policy to Lambda
-![image](https://user-images.githubusercontent.com/44328319/120416980-139d8600-c32c-11eb-814a-9df402952326.png)
+0.  [AWS cli is installed](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+1.  [AWS CDK is installed](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
+2.  As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to [AWS Pinpoint console](https://us-east-1.console.aws.amazon.com/pinpoint/home?region=us-east-1) register TFN for $2/month and it will auto associate to SNS. See issue #3.
+3.  Update `config.yaml` this includes tags for our resources and email if you want be notified
 
- 6. Edit your contacts in ```file.json``` and then Upload ```file.json``` into s3 bucket. DO NOT MAKE PUBLIC and encrypt with your key or SSE.
- 7. Load ```[BUCKETNAME]``` and ```[FILENAME]``` into the Lambda script ```lambda_function.py```
- 8. If you want to get alerted when message is sent create SNS topic and edit field ```[YOURSNSARN] ```. I have sent to my email and slack.
- 9. Test via lambda console using 'test' user in the json file and today's date. Note:the timezone executed is GMT
- 10. Set up cloudwatch event rule with cron job frequency of trigger to your lambda.I set it up as ``` 0 14 * * ? *  ``` which is 1400 Daily GMT or 0900 CST 
+```
+name_tag: NotificationDateBot
+techowner_tag: name
+environment_tag: Dev
+project_tag: NotificationDateBot
+```
 
-![image](https://user-images.githubusercontent.com/44328319/120416540-527f0c00-c32b-11eb-9593-021d9e560963.png)
+2.  Edit `file.json` with your contacts bday and numbers
 
-## Resources
-* [SMS Code](https://www.qloudx.com/how-to-send-an-sms-from-aws-lambda/)
-* [Slack example in python](https://github.com/thibeault/lambda-slack-birthday-bot/blob/master/run.py)
-* [Call S3 file with lambda](http://www.awslessons.com/2017/accessing-s3-with-lambda-functions/)
-* [CLI S3 cheat sheet](https://acloudguru.com/blog/engineering/aws-s3-cheat-sheet)
-* [Boto3 SNS Doc](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html#SNS.Client.publish)
-* [SNS Access Policy Examples](https://docs.aws.amazon.com/sns/latest/dg/sns-access-policy-use-cases.html)
-* [Querying Dynamodb tool](https://dynobase.dev/dynamodb-query/)
-* [DynamoDB cheat sheet](https://dynobase.dev/dynamodb-python-with-boto3/)
+```
+    {
+      "name": "dave",
+      "phone": "12325558888",
+      "birthday": "1973-03-05",
+      "message": "Happy Birthday! Have a fantastic day. From, YOUR_NAME! https://giphy.com/gifs/theoffice-nbc-the-office-tv-lNByEO1uTbVAikv8oT PS This is noreply number"
+    },
+```
+
+3.  To manually create a virtualenv on MacOS and Linux:
+
+    ```
+    $ python3 -m venv .venv
+    ```
+
+4.  After the init process completes and the virtualenv is created, you can use the following
+    step to activate your virtualenv.
+
+        ```
+        $ source .venv/bin/activate
+        ```
+        If you are a Windows platform, you would activate the virtualenv like this:
+
+        ```
+        % .venv\Scripts\activate.bat
+        ```
+
+5.  Once the virtualenv is activated, you can install the required dependencies.
+
+    ```
+    $ pip install -r requirements.txt
+    ```
+
+6.  At this point you can now synthesize the CloudFormation template for this code.
+
+    ```
+    $ cdk synth
+    ```
+
+7.  If you have not `cdk bootsrap` your environment execute that command
+8.  `cdk deploy`
+
+### Extras:
+
+- if deploying to different region than `us-east-1` change the boto3 to that region in `loop.py`
+- add your slack lambda as subscriber to the SNS topic so you can get alerted when text is sent...[Slack example in python](https://github.com/thibeault/lambda-slack-birthday-bot/blob/master/run.py)
+- add your email to `notification.py` `__snstopic` function if want to be alerted when text sends
+
+```
+    def __snstopic(self, stack_config: dict):
+        # Uncomment below if you want to add email subscriber to be notified when text sends
+        # email = "<YOUREMAIL>"
+        self.notificationtopic = sns.Topic(self, "NotificationTopic",
+            display_name="NotificationTopic")
+        # notificationtopic.add_subscription(subscriptions.EmailSubscription(email))
+```
+
+## Useful commands
+
+- `cdk ls` list all stacks in the app
+- `cdk synth` emits the synthesized CloudFormation template
+- `cdk deploy` deploy this stack to your default AWS account/region
+- `cdk diff` compare deployed stack with current state
+- `cdk docs` open CDK documentation
+
+## Troubleshooting
+
+If you get a:
+
+```
+Could not assume role in target account using current credentials Socket timed out without establishing a connection . Please make sure that this role exists in the account. If it doesn't exist, (re)-bootstrap the environment with the right '--trust', using the latest version of the CDK CLI.
+current credentials could not be used to assume
+```
+
+Remediation from github cdk issues using the `--asset-parallelism=false`:
+
+```
+cdk deploy --trust=<account_id> --cloudformation-execution-policies=arn:aws:iam::aws:policy/AdministratorAccess --asset-parallelism=false --verbose
+```
+
+## Resources and Inspiration
+
+- [SMS Code](https://www.qloudx.com/how-to-send-an-sms-from-aws-lambda/)
+- [Slack example in python](https://github.com/thibeault/lambda-slack-birthday-bot/blob/master/run.py)
+- [Call S3 file with lambda](http://www.awslessons.com/2017/accessing-s3-with-lambda-functions/)
+- [Querying Dynamodb tool](https://dynobase.dev/dynamodb-query/)
+- [DynamoDB cheat sheet](https://dynobase.dev/dynamodb-python-with-boto3/)
+
+Enjoy!
