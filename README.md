@@ -21,7 +21,7 @@ Send message to your contacts on an important date (e.g. <name>! Happy Birthday,
 0.  [AWS cli is installed](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 1.  [AWS CDK is installed](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
 2.  As of June 1,2021 sending unregistered texts via SNS in US is not allowed. Go to [AWS Pinpoint console](https://us-east-1.console.aws.amazon.com/pinpoint/home?region=us-east-1) register TFN for $2/month and it will auto associate to SNS. See issue #3.
-3.  Update `config.yaml` this includes tags for our resources and email if you want be notified
+3.  Update `config.yaml` this includes tags for the resources:
 
 ```
 name_tag: NotificationDateBot
@@ -71,7 +71,7 @@ project_tag: NotificationDateBot
     $ cdk synth
     ```
 
-7.  If you have not `cdk bootsrap` your environment execute that command
+7.  If you have not `cdk bootstrap` your environment execute that command
 8.  `cdk deploy`
 
 ### Extras:
